@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh Sửa Vé</title>
+    <link rel="shortcut icon" type="images/x-icon" href="/images/cgv.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Navbar Fragment -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div class="container mt-5">
+        <h1 class="mb-4">Chỉnh Sửa Vé</h1>
+        <form th:action="@{/ve/edit/{id}(id=${ve.maVe})}" th:object="${ve}" method="post">
+            <div class="mb-3">
+                <label for="suatChieu" class="form-label">Suất Chiếu:</label>
+                <select id="suatChieu" class="form-select" th:field="*{suatChieu}">
+                    <option th:each="suatChieu : ${suatChieuList}" th:value="${suatChieu.maSuatChieu}" th:text="${suatChieu.tenSuatChieu}" th:selected="${ve.suatChieu.maSuatChieu == suatChieu.maSuatChieu}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="ghe" class="form-label">Ghế:</label>
+                <select id="ghe" class="form-select" th:field="*{ghe}">
+                    <option th:each="ghe : ${gheList}" th:value="${ghe.maGhe}" th:text="${ghe.tenGhe}" th:selected="${ve.ghe.maGhe == ghe.maGhe}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="nguoiDung" class="form-label">Người Dùng:</label>
+                <select id="nguoiDung" class="form-select" th:field="*{nguoiDung}">
+                    <option th:each="nguoiDung : ${nguoiDungList}" th:value="${nguoiDung.maNguoiDung}" th:text="${nguoiDung.hoTen}" th:selected="${ve.nguoiDung.maNguoiDung == nguoiDung.maNguoiDung}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="monKem" class="form-label">Món Kèm:</label>
+                <select id="monKem" class="form-select" th:field="*{monKem}">
+                    <option th:each="monKem : ${monKemList}" th:value="${monKem.maMonKem}" th:text="${monKem.tenMonKem}" th:selected="${ve.monKem != null && ve.monKem.maMonKem == monKem.maMonKem}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="giaVe" class="form-label">Giá Vé:</label>
+                <input type="text" id="giaVe" class="form-control" th:field="*{giaVe}" />
+            </div>
+            <button type="submit" class="btn btn-primary">Lưu</button>
+        </form>
+        <a href="/ve" class="btn btn-secondary mt-3">Quay lại danh sách Vé</a>
+    </div>
+    <!-- Footer Fragment -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
